@@ -129,6 +129,7 @@ public class IntList {
 
             IntList newList= new IntList(B.first,null);
             IntList temp=B.rest;
+            IntList tempHead=newList;
 
             while (temp!=null)
             {
@@ -137,7 +138,7 @@ public class IntList {
                 newList=newList.rest;
             }
 
-            return newList;
+            return tempHead;
         }
 
         if (B==null)
@@ -149,6 +150,7 @@ public class IntList {
 
             IntList newList= new IntList(A.first,null);
             IntList temp=A.rest;
+            IntList tempHead=newList;
 
             while (temp!=null)
             {
@@ -157,13 +159,14 @@ public class IntList {
                 newList=newList.rest;
             }
 
-            return newList;
+            return tempHead;
 
         }
 
 
         IntList newList= new IntList(A.first,null);
         IntList temp=A.rest;
+        IntList tempHead=newList;
 
         while (temp!=null)
         {
@@ -182,7 +185,7 @@ public class IntList {
             newList=newList.rest;
         }
 
-        return newList;
+        return tempHead;
     }
 
 
