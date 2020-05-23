@@ -175,9 +175,8 @@ public class IntList {
             newList=newList.rest;
         }
 
-        newList.rest=new IntList(B.first,null);
-        temp=B.rest;
-
+        temp=B;
+        
         while (temp!=null)
         {
             newList.rest= new IntList(temp.first,null);
