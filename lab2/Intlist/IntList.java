@@ -112,8 +112,9 @@ public class IntList {
             return null;
         }
 
-        IntList temp=A;
+
         IntList newList= new IntList(A.first,null);
+        IntList temp=A;
 
         while (temp.rest!=null)
         {
