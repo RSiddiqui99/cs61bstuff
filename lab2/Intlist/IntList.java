@@ -126,7 +126,18 @@ public class IntList {
             {
                 return null;
             }
-            return B;
+
+            IntList newList= new IntList(B.first,null);
+            IntList temp=B.rest;
+
+            while (temp!=null)
+            {
+                newList.rest= new IntList(temp.first,null);
+                temp=temp.rest;
+                newList=newList.rest;
+            }
+
+            return newList;
         }
 
         if (B==null)
@@ -135,7 +146,19 @@ public class IntList {
             {
                 return null;
             }
-            return A;
+
+            IntList newList= new IntList(A.first,null);
+            IntList temp=A.rest;
+
+            while (temp!=null)
+            {
+                newList.rest= new IntList(temp.first,null);
+                temp=temp.rest;
+                newList=newList.rest;
+            }
+
+            return newList;
+
         }
 
 
@@ -149,7 +172,8 @@ public class IntList {
             newList=newList.rest;
         }
 
-        temp=B;
+        newList.rest=new IntList(B.first,null);
+        temp=B.rest;
 
         while (temp!=null)
         {
@@ -158,9 +182,7 @@ public class IntList {
             newList=newList.rest;
         }
 
-        A.rest=B;
-
-        return A;
+        return newList;
     }
 
 
