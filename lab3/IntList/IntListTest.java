@@ -11,6 +11,45 @@ public class IntListTest {
      */
 
     @Test
+    public void testReverse()
+    {
+        IntList inputList =new IntList(3,new IntList(4,new IntList(5,new IntList(6,null))));
+        IntList expectedList =new IntList(6,new IntList(5,new IntList(4,new IntList(3,null))));
+        IntList inputListTwo=null;
+        IntList expectedListTwo=null;
+        IntList tempOne=inputList;
+        IntList tempTwo=expectedList;
+
+        //Test case 1
+        inputList=inputList.reverse(inputList);
+        tempOne=inputList; //Why do I have to assign tempOne again?
+
+        while (tempOne!=null)
+        {
+            org.junit.Assert.assertEquals(tempTwo.first,tempOne.first) ;
+            //System.out.println((tempOne.first));
+            tempOne=tempOne.rest;
+            tempTwo=tempTwo.rest;
+        }
+
+        System.out.println("Test Case Reverse Check: Passed");
+
+        //Test case 2
+        org.junit.Assert.assertEquals(inputList,expectedList);
+
+        System.out.println("Test Case Destructive: Passed");
+
+        //Test case 3
+        inputListTwo.reverse(inputListTwo);
+
+        assertEquals(null, IntList.reverse(null));
+
+        System.out.println("Test Case Empty List: Passed");
+
+    }
+
+
+    @Test
     public void testList() {
         IntList one = new IntList(1, null);
         IntList twoOne = new IntList(2, one);
