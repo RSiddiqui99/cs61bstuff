@@ -1,14 +1,13 @@
 public class LinkedListDeque <Type>
 {
-    private Node sentinel;
-    private int size;
+    public Node sentinel;
+    private int size=0;
 
     private class Node
     {
         public Node prev;
         public Type item;
         public Node next;
-        public Node sentinelLastPointer=null;
 
         public Node(Type item, Node next, Node prev)
         {
@@ -20,21 +19,29 @@ public class LinkedListDeque <Type>
 
     public LinkedListDeque()
     {
-        sentinel=new Node(null,null,null);
+        sentinel=new Node(null,sentinel,sentinel);
+    }
+
+    private void addToEmptyList(Type item)
+    {
+        sentinel.next=new Node(item,sentinel,sentinel);
+        sentinel.prev=sentinel.next;
+        size++;
+
+        return;
     }
 
     public void addFirst(Type item)
     {
         if (isEmpty()==true)
         {
-            sentinel.next=new Node(item,sentinel.next,sentinel);
-            sentinel.sentinelLastPointer=sentinel.next;
-            size++;
+            addToEmptyList(item);
 
             return;
         }
 
         sentinel.next=new Node(item,sentinel.next,sentinel);
+        sentinel.next.next.prev=sentinel.next;
         size++;
     }
 
@@ -42,14 +49,13 @@ public class LinkedListDeque <Type>
     {
         if (isEmpty()==true)
         {
-            sentinel.next=new Node(item,sentinel.next,sentinel);
-            sentinel.sentinelLastPointer=sentinel.next;
-            size++;
+            addToEmptyList(item);
 
             return;
         }
 
-        sentinel.sentinelLastPointer.next=new Node(item,sentinel,sentinel.sentinelLastPointer);
+        sentinel.prev.next=new Node(item,sentinel,sentinel.prev);
+        sentinel.prev=sentinel.prev.next;
         size++;
     }
 
@@ -60,10 +66,7 @@ public class LinkedListDeque <Type>
             return true;
         }
 
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     public int size()
@@ -91,21 +94,10 @@ public class LinkedListDeque <Type>
             return null;
         }
 
-        else if (size==1)
-        {
-            Node temp=sentinel.next;
-
-            sentinel.sentinelLastPointer=null;
-            sentinel.next=null;
-            size--;
-
-            return temp.item;
-        }
-
         Node temp=sentinel.next;
 
         sentinel.next=sentinel.next.next;
-        sentinel.next.next.prev=sentinel;
+        sentinel.next.prev=sentinel;
         size--;
 
         return temp.item;
@@ -118,21 +110,10 @@ public class LinkedListDeque <Type>
             return null;
         }
 
-        else if (size==1)
-        {
-            Node temp=sentinel.next;
+        Node temp=sentinel.prev;
 
-            sentinel.sentinelLastPointer=null;
-            sentinel.next=null;
-            size--;
-
-            return temp.item;
-        }
-
-        Node temp=sentinel.sentinelLastPointer;
-
-        sentinel.sentinelLastPointer=sentinel.sentinelLastPointer.prev;
-        sentinel.sentinelLastPointer.next=sentinel;
+        sentinel.prev=sentinel.prev.prev;
+        sentinel.prev.next=sentinel;
         size--;
 
         return temp.item;
@@ -148,5 +129,25 @@ public class LinkedListDeque <Type>
         }
 
         return temp.item;
+    }
+
+    public Type getRecursiveHelper (int index, Node pointer)
+    {
+        if (index>size-1||index<0)
+        {
+            return null;
+        }
+
+        if (index==0)
+        {
+            return pointer.item;
+        }
+
+        return getRecursiveHelper(index-1,pointer.next);
+    }
+
+    public Type getRecursive(int index)
+    {
+        return getRecursiveHelper(index,sentinel.next);
     }
 }
