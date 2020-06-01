@@ -1,14 +1,18 @@
 public class ArrayDeque <Type>
 {
     private Type items[];
-    private int size;
+    private int size=0;
     private int RFactor=0;
-    private
+    private int nextFirst=0;
+    private int nextLast=0;
+    private int first=0;
+    private int last=0;
 
     public ArrayDeque()
     {
         items=(Type[])new Object[8];
-
+        nextFirst=0;
+        nextLast=1;
     }
 
     public void resize (int newSize, int start)
@@ -20,17 +24,37 @@ public class ArrayDeque <Type>
 
     public void addFirst(Type item)
     {
-        resize(size+1,1);
-        items[0]=item;
+        if (nextFirst==0)
+        {
+            items[nextFirst]=item;
+            nextFirst=items.length-1;
+            first=0;
+            size++;
+            return;
+        }
+
+        items[nextFirst]=item;
+        first=nextFirst;
+        nextFirst--;
         size++;
 
     }
 
     public void addLast (Type item)
     {
-        resize(size+1,0);
-        items[size]=item;
+        if (nextLast==items.length-1)
+        {
+            items[nextLast]=item;
+            last=nextLast;
+            nextLast=0;
+            size++;
+            return;
+        }
+
+        items[nextLast]=item;
+        last=nextLast;
         size++;
+        nextLast++;
     }
 
     public boolean isEmpty()
@@ -50,23 +74,68 @@ public class ArrayDeque <Type>
 
     public void printDeque()
     {
-        for (int i=0;i<size;i++)
+        int counter=0;
+        int index=first;
+
+        while (counter!=size)
         {
-            System.out.println(items[i]);
+            if (index==items.length-1)
+            {
+                System.out.println(items[index]);
+                index=0;
+                counter++;
+                continue;
+            }
+
+            System.out.println(items[index]);
+
+            index++;
+            counter++;
         }
     }
 
     public Type removeFirst()
     {
+        Type returnItem=items[first];
 
+        if (first==items.length-1)
+        {
+            items[first]=null;
+            nextFirst=first;
+            first=0;
+            size--;
+
+            return returnItem;
+        }
+
+        items[first]=null;
+        first++;
+        nextFirst=first-1;
+        size--;
+
+        return returnItem;
 
     }
 
     public Type removeLast()
     {
-        Type returnItem=items[size-1];
-        items[size-1]=null;
+        Type returnItem=items[last];
+
+        if (last==0)
+        {
+            items[last]=null;
+            nextLast=last;
+            last=items.length-1;
+            size--;
+
+            return returnItem;
+        }
+
+        items[last]=null;
+        last--;
+        nextLast=last+1;
         size--;
+
         return returnItem;
 
     }
