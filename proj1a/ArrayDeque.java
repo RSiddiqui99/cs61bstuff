@@ -133,7 +133,7 @@ public class ArrayDeque <T>
 
     public T get(int index)
     {
-        return items[index];
+        return items[plusOne(index-1)];
     }
 
 }
