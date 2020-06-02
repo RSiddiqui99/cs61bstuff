@@ -4,8 +4,6 @@ public class ArrayDeque <T>
     private int size=0;
     private int nextFirst=0;
     private int nextLast=0;
-    private int first=0;
-    private int last=0;
 
     public ArrayDeque()
     {
@@ -14,26 +12,26 @@ public class ArrayDeque <T>
         nextLast=1;
     }
 
+    private int minusOne (int index)
+    {
+        return (index-1+items.length)%items.length;
+    }
+
+    private int plusOne (int index)
+    {
+        return (index+1)%items.length;
+    }
+
     private void resize (int newSize)
     {
-        int index=first;
-        int counter=0;
-
         T [] newArray=(T[])new Object[newSize];
 
-        while (counter!=size)
-        {
-            if (index==items.length-1)
-            {
-                newArray[counter]=items[index];
-                index=0;
-                counter++;
-                continue;
-            }
+        int index=plusOne(nextFirst);
 
-            newArray[counter]=items[index];
-            index++;
-            counter++;
+        for (int i=0;i<size;i++)
+        {
+            newArray[i]=items[index];
+            index=plusOne(index);
         }
 
         items=newArray;
@@ -46,20 +44,9 @@ public class ArrayDeque <T>
             resize(size*2);
         }
 
-        if (nextFirst==0)
-        {
-            items[nextFirst]=item;
-            nextFirst=items.length-1;
-            first=0;
-            size++;
-            return;
-        }
-
         items[nextFirst]=item;
-        first=nextFirst;
-        nextFirst--;
+        nextFirst=minusOne(nextFirst);
         size++;
-
     }
 
     public void addLast (T item)
@@ -69,20 +56,9 @@ public class ArrayDeque <T>
             resize(size*2);
         }
 
-        if (nextLast==items.length-1)
-        {
-            items[nextLast]=item;
-            last=nextLast;
-            nextLast=0;
-            size++;
-            return;
-        }
-
         items[nextLast]=item;
-        last=nextLast;
-        nextLast++;
+        nextLast=plusOne(nextLast);
         size++;
-
     }
 
     public boolean isEmpty()
@@ -102,23 +78,12 @@ public class ArrayDeque <T>
 
     public void printDeque()
     {
-        int counter=0;
-        int index=first;
+        int index=plusOne(nextFirst);
 
-        while (counter!=size)
+        for (int i=0;i<size;i++)
         {
-            if (index==items.length-1)
-            {
-                System.out.println(items[index]);
-                index=0;
-                counter++;
-                continue;
-            }
-
             System.out.println(items[index]);
-
-            index++;
-            counter++;
+            index=plusOne(index);
         }
     }
 
@@ -129,26 +94,15 @@ public class ArrayDeque <T>
             return null;
         }
 
-        if (size/items.length<0.25)
+        if ((double)size/items.length<0.25 && size>16)
         {
             resize(size/2);
         }
 
-        T returnItem=items[first];
+        T returnItem=items[plusOne(nextFirst)];
 
-        if (first==items.length-1)
-        {
-            items[first]=null;
-            nextFirst=first;
-            first=0;
-            size--;
-
-            return returnItem;
-        }
-
-        items[first]=null;
-        first++;
-        nextFirst=first-1;
+        items[(plusOne(nextFirst))]=null;
+        nextFirst=plusOne(nextFirst);
         size--;
 
         return returnItem;
@@ -162,26 +116,15 @@ public class ArrayDeque <T>
             return null;
         }
 
-        if (size/items.length<0.25)
+        if ((double)size/items.length<0.25 && size>16)
         {
             resize(size/2);
         }
 
-        T returnItem=items[last];
+        T returnItem=items[minusOne(nextLast)];
 
-        if (last==0)
-        {
-            items[last]=null;
-            nextLast=last;
-            last=items.length-1;
-            size--;
-
-            return returnItem;
-        }
-
-        items[last]=null;
-        last--;
-        nextLast=last+1;
+        items[minusOne(nextLast)]=null;
+        nextLast=minusOne(nextLast);
         size--;
 
         return returnItem;
