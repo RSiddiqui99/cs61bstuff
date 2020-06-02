@@ -25,6 +25,7 @@ public class ArrayDeque <T>
         {
             if (index==items.length-1)
             {
+                newArray[counter]=items[index];
                 index=0;
                 counter++;
                 continue;
