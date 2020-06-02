@@ -2,7 +2,6 @@ public class ArrayDeque <T>
 {
     private T items[];
     private int size=0;
-    private int RFactor=0;
     private int nextFirst=0;
     private int nextLast=0;
     private int first=0;
@@ -15,15 +14,37 @@ public class ArrayDeque <T>
         nextLast=1;
     }
 
-    public void resize (int newSize, int start)
+    private void resize (int newSize)
     {
+        int index=first;
+        int counter=0;
+
         T [] newArray=(T[])new Object[newSize];
-        System.arraycopy(items,0,newArray,start,size);
+
+        while (counter!=size)
+        {
+            if (index==items.length-1)
+            {
+                index=0;
+                counter++;
+                continue;
+            }
+
+            newArray[counter]=items[index];
+            index++;
+            counter++;
+        }
+
         items=newArray;
     }
 
     public void addFirst(T item)
     {
+        if (size==items.length)
+        {
+            resize(size*2);
+        }
+
         if (nextFirst==0)
         {
             items[nextFirst]=item;
@@ -42,6 +63,11 @@ public class ArrayDeque <T>
 
     public void addLast (T item)
     {
+        if (size==items.length)
+        {
+            resize(size*2);
+        }
+
         if (nextLast==items.length-1)
         {
             items[nextLast]=item;
@@ -53,8 +79,9 @@ public class ArrayDeque <T>
 
         items[nextLast]=item;
         last=nextLast;
-        size++;
         nextLast++;
+        size++;
+
     }
 
     public boolean isEmpty()
@@ -96,6 +123,11 @@ public class ArrayDeque <T>
 
     public T removeFirst()
     {
+        if (size/items.length<0.25)
+        {
+            resize(size/2);
+        }
+
         T returnItem=items[first];
 
         if (first==items.length-1)
@@ -119,6 +151,11 @@ public class ArrayDeque <T>
 
     public T removeLast()
     {
+        if (size/items.length<0.25)
+        {
+            resize(size/2);
+        }
+
         T returnItem=items[last];
 
         if (last==0)

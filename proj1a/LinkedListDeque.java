@@ -1,6 +1,6 @@
 public class LinkedListDeque <T>
 {
-    public Node sentinel;
+    private Node sentinel;
     private int size=0;
 
     private class Node
@@ -131,7 +131,7 @@ public class LinkedListDeque <T>
         return temp.item;
     }
 
-    public T getRecursiveHelper (int index, Node pointer)
+    private T getRecursiveHelper (int index, Node pointer)
     {
         if (index>size-1||index<0)
         {
