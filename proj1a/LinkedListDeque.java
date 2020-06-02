@@ -1,4 +1,4 @@
-public class LinkedListDeque <Type>
+public class LinkedListDeque <T>
 {
     public Node sentinel;
     private int size=0;
@@ -6,10 +6,10 @@ public class LinkedListDeque <Type>
     private class Node
     {
         public Node prev;
-        public Type item;
+        public T item;
         public Node next;
 
-        public Node(Type item, Node next, Node prev)
+        public Node(T item, Node next, Node prev)
         {
             this.item = item;
             this.next = next;
@@ -22,7 +22,7 @@ public class LinkedListDeque <Type>
         sentinel=new Node(null,sentinel,sentinel);
     }
 
-    private void addToEmptyList(Type item)
+    private void addToEmptyList(T item)
     {
         sentinel.next=new Node(item,sentinel,sentinel);
         sentinel.prev=sentinel.next;
@@ -31,7 +31,7 @@ public class LinkedListDeque <Type>
         return;
     }
 
-    public void addFirst(Type item)
+    public void addFirst(T item)
     {
         if (isEmpty()==true)
         {
@@ -45,7 +45,7 @@ public class LinkedListDeque <Type>
         size++;
     }
 
-    public void addLast(Type item)
+    public void addLast(T item)
     {
         if (isEmpty()==true)
         {
@@ -87,7 +87,7 @@ public class LinkedListDeque <Type>
         System.out.println();
     }
 
-    public Type removeFirst()
+    public T removeFirst()
     {
         if (isEmpty()==true)
         {
@@ -103,7 +103,7 @@ public class LinkedListDeque <Type>
         return temp.item;
     }
 
-    public Type removeLast()
+    public T removeLast()
     {
         if (isEmpty()==true)
         {
@@ -119,7 +119,7 @@ public class LinkedListDeque <Type>
         return temp.item;
     }
 
-    public Type get(int index)
+    public T get(int index)
     {
         Node temp=sentinel.next;
 
@@ -131,14 +131,14 @@ public class LinkedListDeque <Type>
         return temp.item;
     }
 
-    public Type getRecursiveHelper (int index, Node pointer)
+    public T getRecursiveHelper (int index, Node pointer)
     {
         if (index>size-1||index<0)
         {
             return null;
         }
 
-        if (index==0)
+        else if (index==0)
         {
             return pointer.item;
         }
@@ -146,7 +146,7 @@ public class LinkedListDeque <Type>
         return getRecursiveHelper(index-1,pointer.next);
     }
 
-    public Type getRecursive(int index)
+    public T getRecursive(int index)
     {
         return getRecursiveHelper(index,sentinel.next);
     }

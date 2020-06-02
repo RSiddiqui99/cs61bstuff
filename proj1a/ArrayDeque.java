@@ -1,6 +1,6 @@
-public class ArrayDeque <Type>
+public class ArrayDeque <T>
 {
-    private Type items[];
+    private T items[];
     private int size=0;
     private int RFactor=0;
     private int nextFirst=0;
@@ -10,19 +10,19 @@ public class ArrayDeque <Type>
 
     public ArrayDeque()
     {
-        items=(Type[])new Object[8];
+        items=(T[])new Object[8];
         nextFirst=0;
         nextLast=1;
     }
 
     public void resize (int newSize, int start)
     {
-        Type [] newArray=(Type[])new Object[newSize];
+        T [] newArray=(T[])new Object[newSize];
         System.arraycopy(items,0,newArray,start,size);
         items=newArray;
     }
 
-    public void addFirst(Type item)
+    public void addFirst(T item)
     {
         if (nextFirst==0)
         {
@@ -40,7 +40,7 @@ public class ArrayDeque <Type>
 
     }
 
-    public void addLast (Type item)
+    public void addLast (T item)
     {
         if (nextLast==items.length-1)
         {
@@ -94,9 +94,9 @@ public class ArrayDeque <Type>
         }
     }
 
-    public Type removeFirst()
+    public T removeFirst()
     {
-        Type returnItem=items[first];
+        T returnItem=items[first];
 
         if (first==items.length-1)
         {
@@ -117,9 +117,9 @@ public class ArrayDeque <Type>
 
     }
 
-    public Type removeLast()
+    public T removeLast()
     {
-        Type returnItem=items[last];
+        T returnItem=items[last];
 
         if (last==0)
         {
@@ -140,7 +140,7 @@ public class ArrayDeque <Type>
 
     }
 
-    public Type get(int index)
+    public T get(int index)
     {
         return items[index];
     }
