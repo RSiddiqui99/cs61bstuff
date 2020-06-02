@@ -123,6 +123,11 @@ public class ArrayDeque <T>
 
     public T removeFirst()
     {
+        if (isEmpty()==true)
+        {
+            return null;
+        }
+
         if (size/items.length<0.25)
         {
             resize(size/2);
@@ -151,6 +156,11 @@ public class ArrayDeque <T>
 
     public T removeLast()
     {
+        if (isEmpty()==true)
+        {
+            return null;
+        }
+
         if (size/items.length<0.25)
         {
             resize(size/2);
