@@ -35,6 +35,8 @@ public class ArrayDeque <T>
         }
 
         items=newArray;
+        nextFirst=newSize-1;
+        nextLast=size;
     }
 
     public void addFirst(T item)
