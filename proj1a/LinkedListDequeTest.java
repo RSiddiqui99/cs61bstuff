@@ -89,7 +89,7 @@ public class LinkedListDequeTest {
 		//addIsEmptySizeTest();
 		//addRemoveTest();
 
-        System.out.println((double)(4/10));
+        System.out.println((double)4/10);
 
 
 	}

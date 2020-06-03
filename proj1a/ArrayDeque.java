@@ -43,7 +43,7 @@ public class ArrayDeque <T>
     {
         if (size==items.length)
         {
-            resize(size*2);
+            resize(items.length*2);
         }
 
         items[nextFirst]=item;
@@ -55,7 +55,7 @@ public class ArrayDeque <T>
     {
         if (size==items.length)
         {
-            resize(size*2);
+            resize(items.length*2);
         }
 
         items[nextLast]=item;
@@ -98,7 +98,7 @@ public class ArrayDeque <T>
 
         if ((double)size/items.length<0.25 && size>16)
         {
-            resize(size/2);
+            resize(items.length/2);
         }
 
         T returnItem=items[plusOne(nextFirst)];
@@ -120,7 +120,7 @@ public class ArrayDeque <T>
 
         if ((double)size/items.length<0.25 && size>16)
         {
-            resize(size/2);
+            resize(items.length/2);
         }
 
         T returnItem=items[minusOne(nextLast)];
