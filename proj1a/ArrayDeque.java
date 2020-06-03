@@ -96,7 +96,7 @@ public class ArrayDeque <T>
             return null;
         }
 
-        if ((double)size/items.length<0.25 && size>16)
+        if ((double)size/items.length<0.25 && items.length>16)
         {
             resize(items.length/2);
         }
@@ -118,7 +118,7 @@ public class ArrayDeque <T>
             return null;
         }
 
-        if ((double)size/items.length<0.25 && size>16)
+        if ((double)size/items.length<0.25 && items.length>16)
         {
             resize(items.length/2);
         }
@@ -135,7 +135,7 @@ public class ArrayDeque <T>
 
     public T get(int index)
     {
-        return items[plusOne(index-1)];
+        return items[plusOne(nextFirst+index)];
     }
 
 }
