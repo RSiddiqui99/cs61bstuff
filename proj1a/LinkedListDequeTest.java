@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /** Performs some basic linked list tests. */
 public class LinkedListDequeTest {
 	
@@ -89,7 +91,20 @@ public class LinkedListDequeTest {
 		//addIsEmptySizeTest();
 		//addRemoveTest();
 
-        System.out.println((double)4/10);
+		/*int[] z = null;
+		int[] x, y;
+
+		x = new int[]{1, 2, 3, 4, 5};
+		y = x;
+		x = new int[]{-1, 2, 5, 4, 99};
+		System.out.println(y[0]);*/
+		String a="Raiyan";
+		String b=a;
+		a="arg";
+
+
+		System.out.println(b);
+
 
 
 	}
