@@ -49,7 +49,7 @@ public class ArrayRingBuffer<T> implements BoundedQueue <T> {
 
         if (fillCount==capacity())
         {
-            throw new RuntimeException();
+            throw new RuntimeException("“Ring Buffer overflow");
 
         }
 
@@ -75,7 +75,7 @@ public class ArrayRingBuffer<T> implements BoundedQueue <T> {
 
         if (fillCount==0)
         {
-            throw new RuntimeException();
+            throw new RuntimeException("Ring Buffer underflow");
         }
 
         T item=rb[first];
@@ -104,10 +104,76 @@ public class ArrayRingBuffer<T> implements BoundedQueue <T> {
 
         if (fillCount==0)
         {
-            throw new RuntimeException();
+            throw new RuntimeException("Ring Buffer underflow");
         }
 
         return rb[first];
+    }
+
+    @Override
+    public Iterator<T> iterator()
+    {
+        return new ArrayRingBufferIterator();
+    }
+
+    private class ArrayRingBufferIterator implements Iterator <T>
+    {
+        int pointer;
+        int count;
+
+        private ArrayRingBufferIterator()
+        {
+            count=0;
+            pointer=first;
+        }
+
+        @Override
+        public boolean hasNext()
+        {
+            return count<fillCount();
+        }
+
+        @Override
+        public T next()
+        {
+            T returnItem=rb[pointer];
+            pointer++;
+
+            if (pointer == capacity())
+            {
+                pointer = 0;
+            }
+
+            count++;
+            return  returnItem;
+        }
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (o.getClass()==this.getClass())
+        {
+            ArrayRingBuffer<T> other = (ArrayRingBuffer<T>) o;
+
+            if (this.fillCount==other.fillCount)
+            {
+                Iterator<T> iterOne = this.iterator();
+                Iterator<T> iterTwo = other.iterator();
+
+                while (iterOne.hasNext() && iterTwo.hasNext())
+                {
+                    if (iterOne.next()!=iterTwo.next())
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // TODO: When you get to part 4, implement the needed code to support

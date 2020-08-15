@@ -1,7 +1,7 @@
 package es.datastructur.synthesizer;
 import java.util.Iterator;
 
-public interface BoundedQueue <T> extends Iterable<T>
+public interface BoundedQueue <T> extends Iterable <T>
 {
 
     int capacity();     // return size of the buffer
@@ -12,13 +12,16 @@ public interface BoundedQueue <T> extends Iterable<T>
 
     default boolean isEmpty()    // is the buffer empty (fillCount equals zero)?
     {
-        return false;
+        return fillCount()==0;
     }
 
     default boolean isFull()
     {
-        return false;
+        return fillCount()==capacity();
     }
+
+    @Override
+    Iterator<T> iterator();
 
 
 
