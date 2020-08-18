@@ -27,8 +27,9 @@ public class MyHashMap <K, V>  implements Map61B<K, V>
     {
         this.size=16;
         this.loadFactor=0.75;
-        this.buckets=new ArrayList<>(size);
+        this.buckets=new ArrayList<>();
         this.keys=new HashSet<>();
+
         fillHashtable(buckets,size);
 
     }
@@ -36,18 +37,20 @@ public class MyHashMap <K, V>  implements Map61B<K, V>
     {
         this.size=initialSize;
         this.loadFactor=0.75;
-        this.buckets=new ArrayList<>(initialSize);
+        this.buckets=new ArrayList<>();
         this.keys=new HashSet<>();
-        fillHashtable(buckets,initialSize);
+
+        fillHashtable(buckets,size);
     }
 
     public MyHashMap(int initialSize, double loadFactor)
     {
         this.size=initialSize;
         this.loadFactor=loadFactor;
-        buckets=new ArrayList<>(initialSize);
+        this.buckets=new ArrayList<>();
         this.keys=new HashSet<>();
-        fillHashtable(buckets,initialSize);
+
+        fillHashtable(buckets,size);
     }
 
     private void fillHashtable(ArrayList <LinkedList<Node>> buckets, int size)
@@ -61,8 +64,8 @@ public class MyHashMap <K, V>  implements Map61B<K, V>
     @Override
     public void clear()
     {
-        buckets.clear();
-        keySet().clear();
+        this.buckets=new ArrayList<>();
+        keys.clear();
         numElements=0;
         fillHashtable(buckets,size);
     }
