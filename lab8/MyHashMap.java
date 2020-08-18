@@ -79,11 +79,11 @@ public class MyHashMap <K, V>  implements Map61B<K, V>
     @Override
     public V get(K key)
     {
-        for (int i=0;i<buckets.get(key.hashCode()%size).size();i++)
+        for (int i=0;i<buckets.get(Math.floorMod(key.hashCode(),size)).size();i++)
         {
-            if (buckets.get(key.hashCode()%size).get(i).key.equals(key))
+            if (buckets.get(Math.floorMod(key.hashCode(),size)).get(i).key.equals(key))
             {
-                return buckets.get(key.hashCode()%size).get(i).value;
+                return buckets.get(Math.floorMod(key.hashCode(),size)).get(i).value;
             }
         }
 
@@ -101,18 +101,18 @@ public class MyHashMap <K, V>  implements Map61B<K, V>
     {
         if (containsKey(key))
         {
-            for (int i=0;i<buckets.get(key.hashCode()%size).size();i++)
+            for (int i=0;i<buckets.get(Math.floorMod(key.hashCode(),size)).size();i++)
             {
-                if (buckets.get(key.hashCode()%size).get(i).key.equals(key))
+                if (buckets.get(Math.floorMod(key.hashCode(),size)).get(i).key.equals(key))
                 {
-                    buckets.get(key.hashCode()%size).get(i).value=value;
+                    buckets.get(Math.floorMod(key.hashCode(),size)).get(i).value=value;
                 }
             }
 
             return;
         }
 
-        buckets.get(key.hashCode()%size).add(new Node(key,value));
+        buckets.get(Math.floorMod(key.hashCode(),size)).add(new Node(key,value));
         numElements++;
         keys.add(key);
 
@@ -129,7 +129,7 @@ public class MyHashMap <K, V>  implements Map61B<K, V>
 
         for (K key: keys)
         {
-            newBuckets.get(key.hashCode()%size*2).add(new Node(key,get(key)));
+            newBuckets.get(Math.floorMod(key.hashCode(),size*2)).add(new Node(key,get(key)));
         }
 
         size*=2;
