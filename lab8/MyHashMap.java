@@ -70,15 +70,7 @@ public class MyHashMap <K, V>  implements Map61B<K, V>
     @Override
     public boolean containsKey(K key)
     {
-        for (int i=0;i<buckets.get(key.hashCode()%size).size();i++)
-        {
-            if (buckets.get(key.hashCode()%size).get(i).key.equals(key))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return keys.contains(key);
     }
 
     @Override
@@ -129,26 +121,15 @@ public class MyHashMap <K, V>  implements Map61B<K, V>
 
     public void resize ()
     {
-        int counter=0;
-        int counterTwo=0;
-        int elementsCollected=0;
         ArrayList <LinkedList<Node>> newBuckets=new ArrayList<>(size*2);
         fillHashtable(newBuckets, size*2);
 
-        while (elementsCollected<=numElements)
+        for (K key: keys)
         {
-            if (buckets.get(counter).get(counterTwo)==null)
-            {
-                counter++;
-                counterTwo=0;
-                continue;
-            }
-
-            newBuckets.get(buckets.get(counter).get(counterTwo).key.hashCode()%size*2).add(buckets.get(counter).get(counterTwo));
-            counterTwo++;
-            elementsCollected++;
+            newBuckets.get(key.hashCode()%size*2).add(new Node(key,get(key)));
         }
 
+        size*=2;
         this.buckets=newBuckets;
     }
 
