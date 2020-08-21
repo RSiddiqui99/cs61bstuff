@@ -124,7 +124,7 @@ public class MyHashMap <K, V>  implements Map61B<K, V>
 
     public void resize ()
     {
-        ArrayList <LinkedList<Node>> newBuckets=new ArrayList<>(size*2);
+        ArrayList <LinkedList<Node>> newBuckets=new ArrayList<>();
         fillHashtable(newBuckets, size*2);
 
         for (K key: keys)
